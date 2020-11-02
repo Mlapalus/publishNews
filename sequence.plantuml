@@ -1,0 +1,59 @@
+@startuml news
+
+package "BusinessRules" #FFF {
+  package "Entity" #EEEEE {
+    class News {
+      #erreurs: array
+      #id: int
+      #auteur: string
+      #titre: string
+      #contenu: string
+      #dateAjout: string
+      #dateModif: string
+
+      +_construct(valeurs:array): void
+      +hydrate(donnees:array): void
+      +isView(): bool
+      +isValid(): bool
+      +setId(id:int): void
+      +getId(): int
+      +setAuteur(auteur: string): void
+      +getAuteur(): string
+      +setTitre(titre: string): void
+      +getTitre(): string
+      +setContenu(contenu: string): void
+      +getContenu(): string
+      +setDateAjout(dateAjout: string) void
+      +getDateAjout(): string
+      +setDateModif(dateModif: string) void
+      +getDateModif(): string
+      +getErreurs(): array
+    }
+
+    class NewsManager {
+      #add(news: News): void
+      +delete(id: int): void
+      #update(news: News): void
+      +save(news: News): void
+      +count(): int
+      +getList(debut: int, limite: int): array
+      +getUnique(id: int): News
+    }
+
+    class NewsManager_PDO {
+      #db: PDO
+    }
+
+    class NewsManager_MySQLI {
+      #db: MySQLi
+    }
+
+    NewsManager <-- NewsManager_MySQLI
+    NewsManager <-- NewsManager_PDO
+    NewsManager "1" -- "*" News : Gere
+  }
+}
+
+@enduml
+
+
